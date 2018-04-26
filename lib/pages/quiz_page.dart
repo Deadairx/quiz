@@ -7,6 +7,8 @@ import '../UI/answer_button.dart';
 import '../UI/question_text.dart';
 import '../UI/input_response_overlay.dart';
 
+import './score_page.dart';
+
 class QuizPage extends StatefulWidget {
   @override
   State createState() => new QuizPageState();
@@ -53,7 +55,21 @@ class QuizPageState extends State<QuizPage> {
             new AnswerButton(false, () => handleAnswer(false)),
           ],
         ),
-        overlayVisible == true ? new InputResponseOverlay(isCorrect) : new Container()
+        overlayVisible == true ? new InputResponseOverlay(
+          isCorrect,
+          () {
+            if (quiz.length == questionNumber){
+              Navigator.of(context).pushAndRemoveUntil(new MaterialPageRoute(builder: (BuildContext context) => new ScorePage(quiz.score, quiz.length)), (Route route) => route == null);
+              return;
+            }
+            currentQuestion = quiz.nextQuestion;
+            this.setState((){
+              overlayVisible = false;
+              questionText = currentQuestion.question;
+              questionNumber = quiz.questionNumber;
+            });
+          }
+          ) : new Container()
       ],
     );
   }

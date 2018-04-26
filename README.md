@@ -1,6 +1,6 @@
 # quiz
 
-A new Flutter project.
+Flutter project that follows [this tutorial](https://www.youtube.com/watch?v=jBBl1tYkUnE).
 
 ## Getting Started
 
